@@ -1,1 +1,36 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@font-face {
+    font-family: 'Aeonik';
+    src: url('./utils/font/AeonikTRIAL-Bold.otf') format('truetype');
+    /* Add additional font weights and styles if needed */
+  }
+  
+  /* Aeonik REGULAR */
+  @font-face {
+    font-family: 'Aeonik Pro';
+    src: url('./utils/font/AeonikProTRIAL-Regular.otf') format('truetype');
+    /* Add additional font weights and styles if needed */
+  }
+  
+  
+  .heading{
+    font-family: 'Aeonik';
+    
+  }
+  
+  .small{
+    font-family: 'Aeonik Pro';
+  }
+
+  .truncate-custom {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    -webkit-line-clamp: 3; /* This limits to three lines */
+    max-height: 4.5em; /* Adjust based on line-height */
+    line-height: 1.5em; /* Set line height */
+}
