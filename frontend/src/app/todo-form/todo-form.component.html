@@ -1,0 +1,93 @@
+<div class="max-w-xl p-5 border border-zinc-400 mx-auto rounded-[35px]">
+  <h1 class="heading text-center mt-3 text-2xl">
+    {{ todoToEdit ? "Edit Task" : "New Task" }}
+  </h1>
+
+  <div class="grid grid-cols-2 mt-8 justify-center items-center gap-4">
+    <label class="form-control w-full max-w-xs">
+      <div class="label">
+        <span class="label-text small tracking-wide">Assign To</span>
+      </div>
+      <select
+        class="select small tracking-wide select-bordered"
+        [(ngModel)]="assignTo"
+      >
+        <option disabled>Select here</option>
+        @for (user of users; track $index) {
+        <option value="{{ user._id }}" [selected]="assignTo === user._id">
+          {{ user.name }}
+        </option>
+        }
+      </select>
+    </label>
+
+    <label class="form-control w-full max-w-xs">
+      <div class="label">
+        <span class="label-text small tracking-wide">Status</span>
+      </div>
+      <select
+        class="select small tracking-wide select-bordered"
+        [(ngModel)]="status"
+      >
+        <option disabled selected>Select here</option>
+        <option [selected]="status === 'In Progress'">In Progress</option>
+        <option [selected]="status === 'Not Started'">Not Started</option>
+        <option [selected]="status === 'Completed'">Completed</option>
+      </select>
+    </label>
+
+    <label class="form-control w-full max-w-xs">
+      <div class="label">
+        <span class="label-text small tracking-wide">Due Date</span>
+      </div>
+      <input
+        type="date"
+        [(ngModel)]="dueDate"
+        class="input input-bordered text-zinc-700 small tracking-wide w-full max-w-xs"
+      />
+    </label>
+
+    <label class="form-control w-full max-w-xs">
+      <div class="label">
+        <span class="label-text small tracking-wide">Priority</span>
+      </div>
+      <select
+        class="select small tracking-wide select-bordered"
+        [(ngModel)]="priority"
+      >
+        <option disabled selected>Select here</option>
+        <option [selected]="priority === 'High'">High</option>
+        <option [selected]="priority === 'Low'">Low</option>
+        <option [selected]="priority === 'Normal'">Normal</option>
+      </select>
+    </label>
+  </div>
+
+  <label class="form-control mt-3">
+    <div class="label">
+      <span class="label-text small tracking-wide">Description</span>
+    </div>
+    <textarea
+      [(ngModel)]="description"
+      class="textarea textarea-bordered small h-24"
+      placeholder="Type here"
+    ></textarea>
+  </label>
+
+  <div class="flex justify-center mt-5">
+    <button
+      type="button"
+      class="btn mr-3 heading text-lg w-40 bg-[#0c0c0c] hover:bg-[#272727] text-white rounded-xl tracking-wide"
+      (click)="handleCancel()"
+    >
+      Cancel
+    </button>
+    <button
+      type="button"
+      class="btn heading tracking-wide w-40 bg-[#9381ff] hover:bg-[#978ae4] text-white rounded-xl text-lg ml-3"
+      (click)="saveTodo()"
+    >
+      {{ todoToEdit ? "Update" : "Save" }}
+    </button>
+  </div>
+</div>
