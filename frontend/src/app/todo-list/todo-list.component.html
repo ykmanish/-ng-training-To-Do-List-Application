@@ -1,0 +1,182 @@
+<div class="max-w-7xl p-4 mx-auto">
+  <div
+    class="flex flex-wrap border rounded-t-[35px] p-6 mt-10 items-center justify-between"
+  >
+    <div class="flex justify-center items-center lg:justify-start">
+      <img src="/logo.svg" alt="logo" class="w-10 mr-2 h-10" />
+      <h1 class="heading text-4xl">Tasks</h1>
+    </div>
+
+    <div class="flex flex-wrap items-center gap-4">
+      <div>
+        <div class="relative flex justify-center items-center w-full">
+          <div
+            class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
+          >
+            <img src="/search.svg" alt="search" class="w-4 h-4" />
+          </div>
+          <input
+  type="text"
+  id="simple-search"
+  class="bg-white lg:w-80 border placeholder:text-zinc-500 small input input-bordered py-3 border-gray-300 text-gray-900 text-sm rounded-lg block ps-10 p-2.5"
+  placeholder="Search here..."
+  [(ngModel)]="searchQuery"
+    (ngModelChange)="onSearchChange()"
+  required
+/>
+        </div>
+      </div>
+      <button
+        (click)="showModal()"
+        class="btn bg-[#9381ff] hover:bg-[#7d6aed] flex justify-center items-center tracking-wide text-white small px-4 py-2 rounded-lg"
+      >
+        <img src="/add.svg" alt="add" class="w-4 h-4" />
+        New Task
+      </button>
+      <button
+        class="btn bg-[#0c0c0c] hover:bg-[#2e2e2e] flex justify-center items-center tracking-wide text-white small px-4 py-2 rounded-lg"
+      >
+        <img
+          src="/refresh.svg"
+          alt="add"
+          class="w-4 h-4"
+          (click)="fetchTodoData()"
+        />
+        Refresh
+      </button>
+    </div>
+  </div>
+
+  <div
+    class="overflow-x-auto overflow-y-auto h-[44svh] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300"
+  >
+    <table
+      class="w-full border text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+    >
+      <thead
+        class="sticky top-0 z-10 text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+      >
+        <tr>
+          <th scope="col" class="px-6 heading py-3">Sr. No.</th>
+          <th scope="col" class="px-6 heading py-3">Check</th>
+          <th scope="col" class="px-6 heading py-3">Assigned To</th>
+          <th scope="col" class="px-6 heading py-3">Status</th>
+          <th scope="col" class="px-6 heading py-3">Due Date</th>
+          <th scope="col" class="px-6 heading py-3">Priority</th>
+          <th scope="col" class="px-6 heading py-3">Comments</th>
+          <th scope="col" class="px-6 heading py-3">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        @if (!todoData.length) {
+        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+          <td colspan="8" class="text-center small py-4">No Todo found</td>
+        </tr>
+        } @for (todo of todoData |  paginate: { itemsPerPage: pageSize, currentPage: pageNumber } ; track $index) {
+        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+          <th
+            scope="row"
+            class="px-6 small text-[16px] py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+          >
+            {{ $index + 1 }}
+          </th>
+          <th
+            scope="row"
+            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+          >
+            <label class="inline-flex items-center">
+              <input type="checkbox" class="checkbox" />
+            </label>
+          </th>
+          <th
+            scope="row"
+            class="px-6 small text-[16px] py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+          >
+            {{ todo.assignTo.name }}
+          </th>
+          <th
+            scope="row"
+            class="px-6 text-[16px] small py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+          >
+            {{ todo.status }}
+          </th>
+          <th
+            scope="row"
+            class="px-6 text-[16px] small py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+          >
+            {{ todo.dueDate | date }}
+          </th>
+          <th
+            scope="row"
+            class="px-6 text-[16px] py-4 small font-medium text-gray-900 whitespace-nowrap dark:text-white"
+          >
+            {{ todo.priority }}
+          </th>
+          <th
+            scope="row"
+            class="px-6  text-[16px] py-4 small font-medium text-gray-900 whitespace-nowrap dark:text-white"
+          >
+            {{ todo.description }}
+          </th>
+          <th
+            scope="row"
+            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+          >
+            <button
+              (click)="handleEditTodo(todo)"
+              class="btn mr-3 bg-zinc-50 border hover:bg-zinc-100 border-zinc-500 text-white small px-4 py-2 rounded-lg"
+            >
+              <img
+                src="https://www.svgrepo.com/show/497050/edit.svg"
+                alt="edit"
+                class="w-4 h-4"
+              />
+            </button>
+            <button
+              class="btn ml-3 border border-red-500 hover:bg-red-100 bg-red-50 text-white small px-4 py-2 rounded-lg"
+              (click)="handleDeleteTodo(todo._id)"
+            >
+              <img src="/delete.svg" alt="edit" class="w-4 h-4" />
+            </button>
+          </th>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="flex justify-center mt-10 items-center">
+    <div class="flex">
+        <pagination-controls (pageChange)="pageNumber= $event"></pagination-controls>
+        <input
+        id="pagesize"
+        type="number"
+        class="input w-20 ml-3 h-10 py-1 input-bordered text-center"
+        value="1"
+        min="1"
+        max="pageSize" [(ngModel)]="pageSize"
+        (ngModelChange)="onPageSizeChange()"
+
+      />
+    </div>
+</div>
+
+
+
+@if(isModalVisible) {
+<div
+  class="fixed inset-0 bg-transparent backdrop-blur bg-opacity-40 flex justify-center items-center z-50"
+>
+  <div class="bg-white rounded-[35px] relative">
+    @if(currentSelectedTodo) {
+    <app-todo-form
+      (modelClosed)="closeModal($event)"
+      [todoToEdit]="currentSelectedTodo"
+    ></app-todo-form>
+    } @else {
+    <app-todo-form (modelClosed)="closeModal($event)"></app-todo-form>
+    }
+  </div>
+</div>
+}
