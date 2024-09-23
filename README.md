@@ -30,23 +30,34 @@ This is a full-stack Todo List application built using Angular and Tailwind CSS 
 
 ### Backend Setup:
 1. Navigate to the backend folder.
-2. Install dependencies:
+2. Create a .env file and add the MongoDB connection URL
+
+```.env
+MongoDbURI=mongodb://localhost:27017/your_database_name
+```
+3. Install dependencies:
    **npm install**
-3. Start the backend server:
-   **nodemon server.js**
+4. Install `nodemon` globally
+```bash
+npm i -g nodemon
+```
+5. Start the backend server:
+```bash
+npm run start
+```
 4. Backend server will run on `http://localhost:3000`.
 
 ### Frontend Setup:
 1. Navigate to the frontend folder.
 2. Install Angular dependencies:
-   **npm install**
+```bash
+npm install
+```
 3. Run the Angular development server:
-   **ng serve**
+```bash
+ng serve
+```
 4. Frontend server will run on `http://localhost:4200`.
-
-### Configuration
-Create a .env file in the backend folder and add the MongoDB connection URL
-**MongoDbURI=your_mongodb_connection_string**
 
 ## Usage
 
