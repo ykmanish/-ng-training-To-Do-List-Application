@@ -46,7 +46,7 @@ This is a full-stack Todo List application built using Angular and Tailwind CSS 
 
 ### Configuration
 Create a .env file in the backend folder and add the MongoDB connection URL
-**MongoDbURI=mongodb://<username>:<password>@localhost:27017/<database_name>**
+**MongoDbURI=your_mongodb_connection_string**
 
 ## Usage
 
