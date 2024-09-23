@@ -44,6 +44,10 @@ This is a full-stack Todo List application built using Angular and Tailwind CSS 
    **ng serve**
 4. Frontend server will run on `http://localhost:4200`.
 
+### Configuration
+Create a .env file in the backend folder and add the MongoDB connection URL
+**MongoDbURI=mongodb://<username>:<password>@localhost:27017/<database_name>**
+
 ## Usage
 
 - Open the application at `http://localhost:4200`.
